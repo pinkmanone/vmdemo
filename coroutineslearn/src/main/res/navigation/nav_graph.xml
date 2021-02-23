@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.wc.learn.fragment.HomeFragment"
+        android:label="首页"
+        tools:layout="@layout/fragment_home">
+    </fragment>
+    <fragment
+        android:id="@+id/QAFragment"
+        android:name="com.wc.learn.fragment.QAFragment"
+        android:label="问答"
+        tools:layout="@layout/fragment_q_a">
+    </fragment>
+    <fragment
+        android:id="@+id/knowledgeSystemFragment"
+        android:name="com.wc.learn.fragment.KnowledgeSystemFragment"
+        android:label="体系"
+        tools:layout="@layout/fragment_knowledge_system">
+    </fragment>
+    <fragment
+        android:id="@+id/meFragment"
+        android:name="com.wc.learn.fragment.MeFragment"
+        android:label="我的"
+        tools:layout="@layout/fragment_me">
+    </fragment>
+</navigation>
