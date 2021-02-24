@@ -1,17 +1,18 @@
 package com.wc.learn.fragment
 
-import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.wc.learn.R
+import com.wc.learn.activity.ArticleActivity
 import com.wc.learn.adapter.HomeAdapter
 import com.wc.learn.adapter.WcBannerAdapter
+import com.wc.learn.base.BaseAdapter
 import com.wc.learn.base.BaseVMFragment
 import com.wc.learn.callback.RecyclerViewBottomListener
+import com.wc.learn.data.ArticleData
 import com.wc.learn.data.BannerData
 import com.wc.learn.databinding.BannerLayoutBinding
 import com.wc.learn.databinding.FragmentHomeBinding
@@ -46,9 +47,20 @@ class HomeFragment : BaseVMFragment<FragmentHomeBinding, HomeViewModel>() {
         getBinding()
         bannerAdapter = WcBannerAdapter(banners)
         bannerBinding?.adapter = bannerAdapter
+        bannerAdapter?.setOnBannerListener { data, _ ->
+            ArticleActivity.start(requireActivity(), (data as BannerData).title, data.url)
+        }
 
         binding.rv.layoutManager = LinearLayoutManager(activity)
         adapter = HomeAdapter()
+
+        adapter?.setClickListener(object : BaseAdapter.OnItemClickListener<ArticleData> {
+            override fun click(t: ArticleData?, position: Int) {
+                t?.let {
+                    ArticleActivity.start(requireActivity(), t.title, t.link)
+                }
+            }
+        })
 
         adapter?.addHeaderView(bannerBinding?.root)
         adapter?.addFootView(footerBinding?.root)
@@ -100,11 +112,17 @@ class HomeFragment : BaseVMFragment<FragmentHomeBinding, HomeViewModel>() {
     private fun getBinding() {
 //        bannerBinding = DataBindingUtil.inflate(layoutInflater, R.layout.banner_layout, null, false)
         val header = LayoutInflater.from(activity).inflate(R.layout.banner_layout, null)
-        header.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        header.layoutParams = ViewGroup.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
         bannerBinding = DataBindingUtil.bind(header)
 
         val footer = LayoutInflater.from(activity).inflate(R.layout.list_load_more, null)
-        footer.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        footer.layoutParams = ViewGroup.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
         footerBinding = DataBindingUtil.bind(footer)
     }
 

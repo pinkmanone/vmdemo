@@ -13,7 +13,8 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
  * 列表适配器基类
  */
 
-abstract class BaseAdapter<T>(@LayoutRes val id: Int) : RecyclerView.Adapter<BaseAdapter<T>.BaseViewHolder>() {
+abstract class BaseAdapter<T>(@LayoutRes val id: Int) :
+    RecyclerView.Adapter<BaseAdapter<T>.BaseViewHolder>() {
 
     private val BASE_ITEM_TYPE_HEADER = 100000
     private val BASE_ITEM_TYPE_FOOTER = 200000
@@ -43,6 +44,10 @@ abstract class BaseAdapter<T>(@LayoutRes val id: Int) : RecyclerView.Adapter<Bas
         datas.addAll(data)
         notifyItemInserted(position)
 //        notifyDataSetChanged()
+    }
+
+    fun setClickListener(onItemClickListener: OnItemClickListener<T>) {
+        this.clickListener = onItemClickListener
     }
 
     fun getRealDataPosition(pos: Int): Int {
@@ -120,7 +125,11 @@ abstract class BaseAdapter<T>(@LayoutRes val id: Int) : RecyclerView.Adapter<Bas
         if (isEmpty() || isHeaderViewPos(position) || isFooterViewPos(position)) {
             return
         }
-        holder.bindData(datas[getRealDataPosition(position)], getRealDataPosition(position), clickListener)
+        holder.bindData(
+            datas[getRealDataPosition(position)],
+            getRealDataPosition(position),
+            clickListener
+        )
     }
 
 
@@ -170,7 +179,10 @@ abstract class BaseAdapter<T>(@LayoutRes val id: Int) : RecyclerView.Adapter<Bas
         : RecyclerView.ViewHolder {
 
         constructor(view: View) : super(view)
-        constructor(parent: ViewGroup, @LayoutRes resId: Int) : super(LayoutInflater.from(parent.context).inflate(resId, parent, false))
+        constructor(
+            parent: ViewGroup,
+            @LayoutRes resId: Int
+        ) : super(LayoutInflater.from(parent.context).inflate(resId, parent, false))
 
         fun bindData(t: T?, position: Int, listener: OnItemClickListener<T>?) {
             convert(itemView, t, position, listener)
@@ -179,6 +191,6 @@ abstract class BaseAdapter<T>(@LayoutRes val id: Int) : RecyclerView.Adapter<Bas
     }
 
     interface OnItemClickListener<T> {
-        fun click(t: T, position: Int)
+        fun click(t: T?, position: Int)
     }
 }

@@ -36,7 +36,6 @@ abstract class BaseVMFragment<VDB : ViewDataBinding, VM : BaseViewModel> : LazyF
         viewModel.errorCodeLiveData.observe(this, Observer {
             error(it)
         })
-        println("binding init success")
         return binding.root
     }
 

@@ -23,7 +23,6 @@ abstract class CacheFragment : Fragment() {
             val view = initBinding(inflater, container)
             mRootView = view
             mViewCreated = true
-            println("on create view $view")
             return view
         } else {
             if (mRootView == null) {

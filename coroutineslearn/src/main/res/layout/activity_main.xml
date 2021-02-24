@@ -12,31 +12,32 @@
         android:layout_height="match_parent"
         tools:context=".activity.MainActivity">
 
-        <Button
-            android:id="@+id/btnGet"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="get data"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/purple_500"
+            android:elevation="4dp"
+            android:theme="@style/ThemeOverlay.MaterialComponents.ActionBar"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv"
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/pager"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnGet" />
+            app:layout_constraintBottom_toTopOf="@id/nav"
+            app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
-        <ProgressBar
-            android:id="@+id/progress"
-            android:layout_width="wrap_content"
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/nav"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"
+            app:labelVisibilityMode="labeled"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/pager"
+            app:menu="@menu/main_nav" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

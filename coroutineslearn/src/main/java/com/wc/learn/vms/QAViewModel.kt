@@ -19,10 +19,10 @@ class QAViewModel : BaseViewModel() {
     fun getData(page: Int) {
         viewModelScope.launch {
             pageData.postValue(page)
-//            request { getQA(page) }
-//                    .next {
-//                        articleData.postValue(getRemoteData(this)?.datas)
-//                    }
+            request { getQA(page) }
+                    .next {
+                        articleData.postValue(getRemoteData(this)?.datas)
+                    }
         }
     }
 
