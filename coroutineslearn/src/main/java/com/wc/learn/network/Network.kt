@@ -8,6 +8,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 val service: Network by lazy {
     val okHttpClient = OkHttpClient.Builder()
@@ -84,4 +85,13 @@ interface Network {
      */
     @GET("navi/json")
     suspend fun getNavi(): NetData<List<NavData>>
+
+    /**
+     * 获取体系下文章
+     */
+    @GET("article/list/{page}/json")
+    suspend fun getArticleByTag(
+        @Path("page") page: Int,
+        @Query("cid") cid: Int
+    ): NetData<PageData<ArticleData>>
 }

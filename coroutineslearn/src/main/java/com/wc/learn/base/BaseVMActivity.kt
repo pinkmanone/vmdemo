@@ -8,7 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import java.lang.reflect.ParameterizedType
 
-abstract class BaseVMActivity<VDB : ViewDataBinding, VM : BaseViewModel> : AppCompatActivity() {
+abstract class BaseVMActivity<VDB : ViewDataBinding, VM : BaseViewModel> : BaseActivity() {
 
     lateinit var binding: VDB
     lateinit var viewModel: VM
